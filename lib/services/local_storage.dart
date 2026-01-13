@@ -24,7 +24,7 @@ class LocalStorageService {
         .toList();
   }
 
-  // Hapus semua task (opsional)
+  // Hapus semua task
   static Future<void> clearTasks() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(taskKey);

@@ -29,13 +29,17 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
     description = widget.task?.description ?? "";
     category = widget.task?.category ?? "Umum";
     priority = widget.task?.priority ?? "Medium";
+    reminderDate = widget.task?.reminderDate;
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.task == null ? "Add Task" : "Edit Task"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,6 +47,7 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
           key: _formKey,
           child: ListView(
             children: [
+              // Title Field
               TextFormField(
                 initialValue: title,
                 decoration: const InputDecoration(labelText: "Title"),
@@ -51,31 +56,42 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
                 onSaved: (value) => title = value!,
               ),
               const SizedBox(height: 12),
+
+              // Description Field
               TextFormField(
                 initialValue: description,
                 decoration: const InputDecoration(labelText: "Description"),
                 onSaved: (value) => description = value ?? "",
               ),
               const SizedBox(height: 12),
+
+              // Category Dropdown
               DropdownButtonFormField<String>(
-                initialValue: category,
+                value: category,
                 decoration: const InputDecoration(labelText: "Category"),
                 items: categories
                     .map((c) => DropdownMenuItem(value: c, child: Text(c)))
                     .toList(),
-                onChanged: (value) => category = value!,
+                onChanged: (value) => setState(() => category = value!),
               ),
               const SizedBox(height: 12),
+
+              // Priority Dropdown
               DropdownButtonFormField<String>(
-                initialValue: priority,
+                value: priority,
                 decoration: const InputDecoration(labelText: "Priority"),
                 items: priorities
                     .map((p) => DropdownMenuItem(value: p, child: Text(p)))
                     .toList(),
-                onChanged: (value) => priority = value!,
+                onChanged: (value) => setState(() => priority = value!),
               ),
               const SizedBox(height: 16),
+
+              // Reminder Button
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isDark ? Colors.tealAccent : Colors.blue,
+                ),
                 child: Text(
                   reminderDate == null
                       ? "Set Reminder"
@@ -108,11 +124,15 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
                 },
               ),
               const SizedBox(height: 20),
+
+              // Save/Add Button
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isDark ? Colors.tealAccent : Colors.green,
+                ),
                 child: Text(widget.task == null ? "Add" : "Save"),
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
-
                   _formKey.currentState!.save();
 
                   final newTask = Task(
@@ -122,8 +142,10 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
                     category: category,
                     priority: priority,
                     isDone: widget.task?.isDone ?? false,
+                    reminderDate: reminderDate,
                   );
 
+                  // Schedule notification if reminder is set
                   if (reminderDate != null) {
                     await NotificationService.scheduleNotification(
                       id: newTask.id.hashCode,
@@ -136,23 +158,6 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
                   if (!mounted) return;
                   Navigator.pop(context, newTask);
                 },
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () async {
-                  // TEST NOTIF: 1 menit dari sekarang
-                  final testTime = DateTime.now().add(
-                    const Duration(minutes: 1),
-                  );
-                  await NotificationService.scheduleNotification(
-                    id: 999,
-                    title: "Test Notification",
-                    body: "Ini percobaan notifikasi 1 menit dari sekarang",
-                    scheduledDate: testTime,
-                  );
-                  print("Test notification scheduled at $testTime");
-                },
-                child: const Text("Test Notif 1 Menit"),
               ),
             ],
           ),

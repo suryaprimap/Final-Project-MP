@@ -6,7 +6,8 @@ import 'add_edit_task_page.dart';
 enum FilterOption { All, Done, NotDone }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function(bool)? onToggleTheme; // callback dari main.dart
+  const HomePage({super.key, this.onToggleTheme});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -62,10 +63,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("To-Do List"),
         actions: [
+          // Toggle dark/light mode
+          IconButton(
+            icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () {
+              if (widget.onToggleTheme != null) {
+                widget.onToggleTheme!(!isDark);
+              }
+            },
+          ),
+          // Filter menu
           PopupMenuButton<FilterOption>(
             onSelected: (value) {
               setState(() {

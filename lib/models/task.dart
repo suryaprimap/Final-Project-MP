@@ -2,36 +2,36 @@ class Task {
   String id;
   String title;
   String description;
+  String category;
+  String priority;
   bool isDone;
-  String category; // fitur opsional
-  String priority; // Low / Medium / High
+  DateTime? reminderDate;
 
   Task({
     required this.id,
     required this.title,
     required this.description,
+    required this.category,
+    required this.priority,
     this.isDone = false,
-    this.category = "Umum",
-    this.priority = "Normal",
+    this.reminderDate,
   });
 
-  // Convert object ke JSON untuk disimpan di shared_preferences
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "description": description,
-    "isDone": isDone,
-    "category": category,
-    "priority": priority,
-  };
-
-  // Convert JSON ke object Task
   factory Task.fromJson(Map<String, dynamic> json) => Task(
-    id: json["id"],
-    title: json["title"],
-    description: json["description"],
-    isDone: json["isDone"],
-    category: json["category"],
-    priority: json["priority"],
+    id: json['id'],
+    title: json['title'],
+    description: json['description'],
+    category: json['category'],
+    priority: json['priority'],
+    isDone: json['isDone'] ?? false,
   );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'title': title,
+    'description': description,
+    'category': category,
+    'priority': priority,
+    'isDone': isDone,
+  };
 }
