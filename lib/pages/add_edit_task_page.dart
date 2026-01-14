@@ -32,54 +32,122 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
     reminderDate = widget.task?.reminderDate;
   }
 
+  Color categoryColor(String category) {
+    switch (category.toLowerCase()) {
+      case "kuliah":
+        return Colors.blueAccent;
+      case "pribadi":
+        return Colors.greenAccent;
+      case "kerja":
+        return Colors.orangeAccent;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.task == null ? "Add Task" : "Edit Task"),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        elevation: 0,
+        backgroundColor: theme.colorScheme.background,
+        foregroundColor: theme.colorScheme.onBackground,
       ),
+      backgroundColor: theme.colorScheme.background,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              // Title Field
+              // Title
               TextFormField(
                 initialValue: title,
-                decoration: const InputDecoration(labelText: "Title"),
+                decoration: InputDecoration(
+                  labelText: "Title",
+                  filled: true,
+                  fillColor: theme.cardColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
                 validator: (value) =>
                     value == null || value.isEmpty ? "Required" : null,
                 onSaved: (value) => title = value!,
               ),
               const SizedBox(height: 12),
 
-              // Description Field
+              // Description
               TextFormField(
                 initialValue: description,
-                decoration: const InputDecoration(labelText: "Description"),
+                decoration: InputDecoration(
+                  labelText: "Description",
+                  filled: true,
+                  fillColor: theme.cardColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
                 onSaved: (value) => description = value ?? "",
+                maxLines: 3,
               ),
               const SizedBox(height: 12),
 
-              // Category Dropdown
+              // Category
               DropdownButtonFormField<String>(
                 value: category,
-                decoration: const InputDecoration(labelText: "Category"),
+                decoration: InputDecoration(
+                  labelText: "Category",
+                  filled: true,
+                  fillColor: theme.cardColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
                 items: categories
-                    .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                    .map(
+                      (c) => DropdownMenuItem(
+                        value: c,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 10,
+                              margin: const EdgeInsets.only(right: 8),
+                              decoration: BoxDecoration(
+                                color: categoryColor(c),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Text(c),
+                          ],
+                        ),
+                      ),
+                    )
                     .toList(),
                 onChanged: (value) => setState(() => category = value!),
               ),
               const SizedBox(height: 12),
 
-              // Priority Dropdown
+              // Priority
               DropdownButtonFormField<String>(
                 value: priority,
-                decoration: const InputDecoration(labelText: "Priority"),
+                decoration: InputDecoration(
+                  labelText: "Priority",
+                  filled: true,
+                  fillColor: theme.cardColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
                 items: priorities
                     .map((p) => DropdownMenuItem(value: p, child: Text(p)))
                     .toList(),
@@ -88,14 +156,22 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
               const SizedBox(height: 16),
 
               // Reminder Button
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isDark ? Colors.tealAccent : Colors.blue,
-                ),
-                child: Text(
+              ElevatedButton.icon(
+                icon: const Icon(Icons.notifications),
+                label: Text(
                   reminderDate == null
                       ? "Set Reminder"
                       : "Reminder: ${reminderDate!.toLocal().toString().substring(0, 16)}",
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isDark
+                      ? const Color.fromARGB(255, 255, 143, 7)
+                      : theme.colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: () async {
                   final pickedDate = await showDatePicker(
@@ -125,12 +201,20 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
               ),
               const SizedBox(height: 20),
 
-              // Save/Add Button
+              // Save Button
               ElevatedButton(
+                child: Text(widget.task == null ? "Add Task" : "Save Task"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: isDark ? Colors.tealAccent : Colors.green,
+                  backgroundColor: isDark
+                      ? const Color.fromARGB(255, 255, 143, 7)
+                      : Colors.green,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  textStyle: const TextStyle(fontSize: 16, color: Colors.white),
                 ),
-                child: Text(widget.task == null ? "Add" : "Save"),
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
                   _formKey.currentState!.save();
