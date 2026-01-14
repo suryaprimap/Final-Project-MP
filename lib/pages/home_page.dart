@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 import '../services/local_storage.dart';
 import 'add_edit_task_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+User? currentUser = FirebaseAuth.instance.currentUser;
 
 enum FilterOption { All, Done, NotDone }
 
@@ -53,8 +56,14 @@ class _HomePageState extends State<HomePage> {
     saveTasks();
   }
 
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   List<Task> get filteredTasks {
-    List<Task> filtered = tasks;
+    if (currentUser == null) return [];
+
+    List<Task> filtered = tasks
+        .where((t) => t.userId == currentUser!.uid)
+        .toList();
 
     // Apply Done/NotDone filter
     switch (filter) {
@@ -132,6 +141,17 @@ class _HomePageState extends State<HomePage> {
                 child: Text("Not Done"),
               ),
             ],
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              // Navigate back to login page
+              if (mounted) {
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../models/task.dart';
 import '../services/notification_service.dart';
 
@@ -49,6 +50,8 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     final theme = Theme.of(context);
+
+    final currentUser = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -219,8 +222,18 @@ class _AddEditTaskPageState extends State<AddEditTaskPage> {
                   if (!_formKey.currentState!.validate()) return;
                   _formKey.currentState!.save();
 
+                  if (currentUser == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("You must be logged in!")),
+                    );
+                    return;
+                  }
+
                   final newTask = Task(
                     id: widget.task?.id ?? const Uuid().v4(),
+                    userId:
+                        widget.task?.userId ??
+                        currentUser.uid, // ✅ Associate task with user
                     title: title,
                     description: description,
                     category: category,
