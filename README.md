@@ -34,23 +34,23 @@ A mobile To-Do List application built with Flutter that allows users to manage t
 
 ## Screenshots
 ### Homepage
-<img width="1080" height="2400" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
+<img width="270" height="600" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
 
 ### Add & Edit Task Page
-<img width="1080" height="2400" alt="Screenshot_20260115_141957" src="https://github.com/user-attachments/assets/baf6853b-cb7d-4806-8e07-97b5b6666d5a" />
+<img width="270" height="600" alt="Screenshot_20260115_141957" src="https://github.com/user-attachments/assets/baf6853b-cb7d-4806-8e07-97b5b6666d5a" />
 
 ### Login Page
-<img width="1080" height="2400" alt="Screenshot_20260115_142015" src="https://github.com/user-attachments/assets/897f2117-7efe-468e-b460-0b78b0dd2c71" />
+<img width="270" height="600" alt="Screenshot_20260115_142015" src="https://github.com/user-attachments/assets/897f2117-7efe-468e-b460-0b78b0dd2c71" />
 
 ### Category Filter View
-<img width="1080" height="2400" alt="Screenshot_20260115_141716" src="https://github.com/user-attachments/assets/88ec7bd7-c123-4570-8c6b-70a7736aa8d8" />
+<img width="270" height="600" alt="Screenshot_20260115_141716" src="https://github.com/user-attachments/assets/88ec7bd7-c123-4570-8c6b-70a7736aa8d8" />
 
 ### View Based on Task Completion
-<img width="1080" height="2400" alt="Screenshot_20260115_141926" src="https://github.com/user-attachments/assets/6e6e295b-1e5d-4f36-9ca1-8653e553c63a" />
+<img width="270" height="600" alt="Screenshot_20260115_141926" src="https://github.com/user-attachments/assets/6e6e295b-1e5d-4f36-9ca1-8653e553c63a" />
 
 ### Dark & Light Mode
-<img width="1080" height="2400" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
-<img width="1080" height="2400" alt="Screenshot_20260115_142527" src="https://github.com/user-attachments/assets/3c05cd06-ee5b-4163-8114-2a8d3e5a1fb1" />
+<img width="270" height="600" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
+<img width="270" height="600" alt="Screenshot_20260115_142527" src="https://github.com/user-attachments/assets/3c05cd06-ee5b-4163-8114-2a8d3e5a1fb1" />
 
 
 ## Getting Started
@@ -100,4 +100,5 @@ lib/
 │  ├─ local_storage.dart  # Local task persistence
 │  └─ notification_service.dart # Scheduling notifications
 ```
+
 
