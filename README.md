@@ -32,11 +32,9 @@ A mobile To-Do List application built with Flutter that allows users to manage t
 - Firebase Auth for user login.
 - Tasks can be synced to Firebase (optional if implementing cloud storage).
 
-## Screenshots
+## Screenshots                          Add & Edit Task Page
 ### Homepage
 <img width="270" height="600" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
-
-### Add & Edit Task Page
 <img width="270" height="600" alt="Screenshot_20260115_141957" src="https://github.com/user-attachments/assets/baf6853b-cb7d-4806-8e07-97b5b6666d5a" />
 
 ### Login Page
@@ -100,5 +98,6 @@ lib/
 │  ├─ local_storage.dart  # Local task persistence
 │  └─ notification_service.dart # Scheduling notifications
 ```
+
 
 
