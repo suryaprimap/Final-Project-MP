@@ -34,10 +34,11 @@ A mobile To-Do List application built with Flutter that allows users to manage t
 
 ## Screenshots                          
 ### Homepage, Add & Edit Task Page and Login Page
-<img width="270" height="600" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
-<img width="270" height="600" alt="Screenshot_20260115_141957" src="https://github.com/user-attachments/assets/baf6853b-cb7d-4806-8e07-97b5b6666d5a" />
-<img width="270" height="600" alt="Screenshot_20260115_142015" src="https://github.com/user-attachments/assets/897f2117-7efe-468e-b460-0b78b0dd2c71" />
-
+<p align="center">
+  <img width="270" height="600" alt="Screenshot_20260115_141913" src="https://github.com/user-attachments/assets/09844176-48ad-49af-9e19-fc06b3097dbd" />
+  <img width="270" height="600" alt="Screenshot_20260115_141957" src="https://github.com/user-attachments/assets/baf6853b-cb7d-4806-8e07-97b5b6666d5a" />
+  <img width="270" height="600" alt="Screenshot_20260115_142015" src="https://github.com/user-attachments/assets/897f2117-7efe-468e-b460-0b78b0dd2c71" />
+</p>
 ### Category Filter View
 <img width="270" height="600" alt="Screenshot_20260115_141716" src="https://github.com/user-attachments/assets/88ec7bd7-c123-4570-8c6b-70a7736aa8d8" />
 
@@ -96,6 +97,7 @@ lib/
 │  ├─ local_storage.dart  # Local task persistence
 │  └─ notification_service.dart # Scheduling notifications
 ```
+
 
 
 
